@@ -19,15 +19,17 @@ const config = getConfig();
 
 const providerConfig = {
   domain: config.domain,
-  clientId: config.clientId,
+  clientId: config.client_id,
   ...(config.audience ? { audience: config.audience } : null),
   redirectUri: window.location.origin,
   onRedirectCallback,
 };
 
 ReactDOM.render(
-  <Auth0Provider {...providerConfig}>
-    <TestApp/>
+  <Auth0Provider
+    {...providerConfig}
+  >
+    <TestApp />
   </Auth0Provider>,
   document.getElementById("root")
 );
