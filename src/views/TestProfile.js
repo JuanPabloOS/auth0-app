@@ -2,10 +2,35 @@ import React, { useState, useEffect } from 'react';
 import { useAuth0 } from '@auth0/auth0-react';
 import ThemeButton from '../components/ThemeButton';
 import LogoutButton from '../components/LogoutButton';
+import { serverURL } from '../auth_config.json';
 
 const TestProfile = ({ change }) => {
-  const { user, isAuthenticated, isLoading } = useAuth0();
+  const { user, isAuthenticated, isLoading, getAccessTokenSilently } = useAuth0();
   const [role, setRole] = useState('B');
+  const [message, setMessage] = useState("");
+  const [id, setID] = useState("");
+  const [tokenReponse, setToken] = useState("");
+  const call = async () => {
+    try {
+      const token = await getAccessTokenSilently();
+      const response = await fetch(
+        `${serverURL}/auth`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      const responseData = await response.json();
+      console.log(responseData);
+      setMessage(responseData.payload);
+      setID(responseData.userID);
+      setToken(responseData.token);
+    } catch (error) {
+      console.log(error);
+      setMessage(error.message);
+    }
+  }
 
   useEffect(() => {
     if (isAuthenticated && user) {
@@ -22,6 +47,23 @@ const TestProfile = ({ change }) => {
         <p>{user.email}</p>
         {isAuthenticated ? <ThemeButton change={change} /> : null}
         <br />
+        <br />
+        <button onClick={call}>Call API</button>
+        <br />
+        <br />
+        <code style={{ color: 'white', padding: '1rem' }}>
+          {message}
+        </code>
+        <br />
+        <br />
+        <code style={{ color: 'white', padding: '1rem' }}>
+          {id}
+        </code>
+        <br />
+        <br />
+        <code style={{ color: 'white', padding: '1rem' }}>
+          {tokenReponse}
+        </code>
         <br />
         <br />
         {isAuthenticated && <LogoutButton />}

@@ -2,7 +2,7 @@ import { createGlobalStyle } from "styled-components"
 export const GlobalStyles = createGlobalStyle`
   body {
     background:
-    ${({ theme, role }) => { console.log(role, theme); return role === 'B' ? 'white' : theme.body }};
+    ${({ theme, role }) => role === 'B' ? 'white' : theme.body};
     color: ${({ theme, role }) => role === 'B' ? "#000" : theme.text};
     display: flex;
     height: 100vh;
