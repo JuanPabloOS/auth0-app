@@ -51,17 +51,17 @@ const TestProfile = ({ change }) => {
         <button onClick={call}>Call API</button>
         <br />
         <br />
-        <code style={{ color: 'white', padding: '1rem' }}>
+        <code style={{ color: 'lightblue', padding: '1rem' }}>
           {message}
         </code>
         <br />
         <br />
-        <code style={{ color: 'white', padding: '1rem' }}>
+        <code style={{ color: 'lightblue', padding: '1rem' }}>
           {id}
         </code>
         <br />
         <br />
-        <code style={{ color: 'white', padding: '1rem' }}>
+        <code style={{ color: 'lightblue', padding: '1rem' }}>
           {tokenReponse}
         </code>
         <br />
