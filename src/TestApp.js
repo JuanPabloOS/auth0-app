@@ -25,7 +25,7 @@ const TestApp = () => {
   const [role, setRole] = useState('B');
   useEffect(() => {
     if (isAuthenticated && user) {
-      setRole(user['http://localhost:3000/roles'][0] === 'A' ? "A" : 'B');
+      setRole(user['http://localhost:3000/roles'][0]);
     }
   }, [isAuthenticated, user]);
   return (
@@ -36,10 +36,13 @@ const TestApp = () => {
       alignItems: "center",
       justifyContent: 'center',
       width: '100%',
+      padding: "2rem",
     }}>
       {isLoading && <h1>Loading...</h1>}
-      {isAuthenticated ? <Provider role={role} /> : <div>You need to login or signup to continue</div>}
-      {!isAuthenticated ? <LoginButton /> : null}
+      {isAuthenticated ? <Provider role={role} /> : null}
+      {!isAuthenticated && !isLoading && <div>You need to login or signup to continue</div>}
+      <br />
+      {!isAuthenticated && !isLoading ? <LoginButton /> : null}
     </div>
   );
 };

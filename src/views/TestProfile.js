@@ -22,7 +22,6 @@ const TestProfile = ({ change }) => {
         }
       );
       const responseData = await response.json();
-      console.log(responseData);
       setMessage(responseData.payload);
       setID(responseData.userID);
       setToken(responseData.token);
@@ -34,37 +33,39 @@ const TestProfile = ({ change }) => {
 
   useEffect(() => {
     if (isAuthenticated && user) {
-      setRole(user['http://localhost:3000/roles'][0] === 'A' ? 'A' : 'B');
+      setRole(user['http://localhost:3000/roles'][0]);
     }
   }, [isAuthenticated, user]);
 
   return isLoading ? <h1>Loading...</h1> :
     isAuthenticated ? (
-      <div>
+      <div style={{
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: "center",
+        justifyContent: 'center',
+        width: '100%',
+        textAlign: 'center',
+      }}>
         <img src={user.picture} alt={user.name} />
         <h1>Role {role}</h1>
         <h2>{user.name}</h2>
         <p>{user.email}</p>
         {isAuthenticated ? <ThemeButton change={change} /> : null}
         <br />
-        <br />
         <button onClick={call}>Call API</button>
-        <br />
         <br />
         <code style={{ color: 'lightblue', padding: '1rem' }}>
           {message}
         </code>
         <br />
-        <br />
         <code style={{ color: 'lightblue', padding: '1rem' }}>
           {id}
         </code>
         <br />
-        <br />
         <code style={{ color: 'lightblue', padding: '1rem' }}>
           {tokenReponse}
         </code>
-        <br />
         <br />
         {isAuthenticated && <LogoutButton />}
       </div>
