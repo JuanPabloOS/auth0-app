@@ -31,7 +31,7 @@ const TestApp = () => {
   return (
     <div style={{
       display: 'flex',
-      height: '100vh',
+      minHeight: '100vh',
       flexDirection: 'column',
       alignItems: "center",
       justifyContent: 'center',
